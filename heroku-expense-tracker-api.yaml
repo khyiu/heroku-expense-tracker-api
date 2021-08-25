@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Heroku Expense Tracker
+  description: API for Heroku Expense Tracker, a hobby project to manage personal expenses
+  version: 1.0.0
+servers:
+  - url: 'https://heroku-expense-tracker-back.herokuapp.com/'
+    description: Production environment
+tags:
+  - name: Expenses
+    description: Operations related to a set of expenses
+paths:
+  /expenses:
+    post:
+      tags:
+        - Expenses
+      operationId: registerExpense
+      summary: Register an expense.
+      description: Registers an expense
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+        required: true
+      responses:
+        201:
+          description: Expense has been properly registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        400:
+          description: Request does not comply with the data strcture as defined in the API
+components:
+  schemas:
+    ExpenseRequest:
+      description: Request object representing an expense to be registered in the application
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          example: '2021-08-25'
+        amount:
+          type: number
+          example: 9.95
+          maximum: 9999999
+        tags:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          minLength: 1
+          maxLength: 50
+          example: groceries, shopping
+        description:
+          type: string
+          maxLength: 1024
+        paidWithCreditCard:
+          type: boolean
+        creditCardStatementIssued:
+          type: boolean
+      required:
+        - date
+        - amount
+        - tags
+
+    ExpenseResponse:
+      description: Representation of an expense that has been persisted in the system.
+      allOf:
+        - $ref: '#/components/schemas/ExpenseRequest'
+        - type: object
+          properties:
+            id:
+              type: string
+          required:
+            - id
