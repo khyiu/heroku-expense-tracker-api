@@ -2,13 +2,15 @@ openapi: 3.0.3
 info:
   title: Heroku Expense Tracker
   description: API for Heroku Expense Tracker, a hobby project to manage personal expenses
-  version: 1.0.0
+  version: 1.1.0
 servers:
   - url: 'https://heroku-expense-tracker-back.herokuapp.com/'
     description: Production environment
 tags:
   - name: Expenses
     description: Operations related to a set of expenses
+  - name: Expense
+    description: Operations related to a specific expense
 paths:
   /expenses:
     post:
@@ -32,6 +34,36 @@ paths:
                 $ref: '#/components/schemas/ExpenseResponse'
         400:
           description: Request does not comply with the data strcture as defined in the API
+
+  /expenses/{id}:
+    get:
+      tags:
+        - Expenses
+      operationId: getExpense
+      summary: Retrieve an expense based on its identifier
+      description: Fetch the expense that is identitied by `id` and belongs to the current user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: e0ba836f-5831-40bb-88a7-ca3e1ecf1526
+          required: true
+          description: Identifier of the expense to be retrieved
+      responses:
+        200:
+          description: Retrieved expense
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        401:
+          description: User isn't authenticated
+        403:
+          description: User is authenticated but isn't allowed to access the specified expensed
+        404:
+          description: The specified expense does not exist
+
 components:
   schemas:
     ExpenseRequest:
