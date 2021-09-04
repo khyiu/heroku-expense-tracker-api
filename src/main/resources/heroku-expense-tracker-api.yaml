@@ -35,10 +35,10 @@ paths:
         400:
           description: Request does not comply with the data strcture as defined in the API
 
-  /expenses/{id}:
+  /expense/{id}:
     get:
       tags:
-        - Expenses
+        - Expense
       operationId: getExpense
       summary: Retrieve an expense based on its identifier
       description: Fetch the expense that is identitied by `id` and belongs to the current user
