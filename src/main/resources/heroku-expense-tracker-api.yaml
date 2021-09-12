@@ -93,6 +93,8 @@ components:
           type: boolean
         creditCardStatementIssued:
           type: boolean
+        version:
+          type: integer
       required:
         - date
         - amount
