@@ -77,7 +77,7 @@ components:
         amount:
           type: number
           example: 9.95
-          maximum: 9999999
+          maximum: 999999.99
         tags:
           type: array
           items:
