@@ -64,6 +64,45 @@ paths:
         404:
           description: The specified expense does not exist
 
+    put:
+      tags:
+        - Expense
+      operationId: updateExpense
+      summary: Update an existing expense
+      description: Update the expense that is identified by `id` and belongs to the current user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: e0ba836f-5831-40bb-88a7-ca3e1ecf1526
+          required: true
+          description: Identifier of the expense to be updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+        required: true
+      responses:
+        200:
+          description: Expense has been properly updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+        400:
+          description: Request does not comply with the data strcture as defined in the API
+        401:
+          description: User isn't authenticated
+        403:
+          description: User is authenticated but isn't allowed to access the specified expensed
+        404:
+          description: The expense identified by `id` does not exist
+        409:
+          description: The expense to be updated has already been updated by an other request. The current current needs to reload it
+
+
 components:
   schemas:
     ExpenseRequest:
