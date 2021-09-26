@@ -33,7 +33,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExpenseResponse'
         400:
-          description: Request does not comply with the data strcture as defined in the API
+          description: Request does not comply with the data structure as defined in the API
 
   /expense/{id}:
     get:
@@ -92,7 +92,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExpenseResponse'
         400:
-          description: Request does not comply with the data strcture as defined in the API
+          description: Request does not comply with the data structure as defined in the API
+        401:
+          description: User isn't authenticated
+        403:
+          description: User is authenticated but isn't allowed to access the specified expensed
+        404:
+          description: The expense identified by `id` does not exist
+        409:
+          description: The expense to be updated has already been updated by an other request. The current current needs to reload it
+
+    delete:
+      tags:
+        - Expense
+      operationId: deleteExpense
+      summary: Delete an existing expense
+      description: Delete the expense that is identfied by `id`
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: e0ba836f-5831-40bb-88a7-ca3e1ecf1526
+          required: true
+          description: Identifier of the expense to be updated
+      responses:
+        200:
+          description: Expense has been properly deleted
+        400:
+          description: Request does not comply with the data structure as defined in the API
         401:
           description: User isn't authenticated
         403:
