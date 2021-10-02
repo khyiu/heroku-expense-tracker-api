@@ -34,6 +34,45 @@ paths:
                 $ref: '#/components/schemas/ExpenseResponse'
         400:
           description: Request does not comply with the data structure as defined in the API
+    get:
+      tags:
+        - Expenses
+      operationId: getExpenses
+      summary: Retrieve expenses
+      description: Retrieves expenses belonging to the current user, in a paginated way. This operation also supports filtering based on
+      tag(s) and partial description
+      parameters:
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+            required: true
+        - in: query
+          name: pageNumber
+          schema:
+            type: integer
+            minimum: 1
+            required: true
+        - in: query
+          name: tagFilters
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: descriptionFilter
+          schema:
+            type: string
+      responses:
+        200:
+          description: Retrieval is successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseListResponse'
+        401:
+          description: User isn't authenticated
 
   /expense/{id}:
     get:
@@ -178,3 +217,18 @@ components:
               type: string
           required:
             - id
+
+    ExpenseListResponse:
+        description: Paginated response that is returned to the user upon retrieval of his expenses
+        type: object
+        properties:
+          pageNumber:
+            type: integer
+          pageSize:
+            type: integer
+          totalNumberOfItems:
+            type: integer
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ExpenseResponse'
