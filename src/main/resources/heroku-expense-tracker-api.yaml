@@ -80,6 +80,14 @@ paths:
           name: descriptionFilter
           schema:
             type: string
+        - in: query
+          name: paidWithCreditCardFilter
+          schema:
+            type: boolean
+        - in: query
+          name: creditCardStatementIssuedFilter
+          schema:
+            type: boolean
       responses:
         200:
           description: Retrieval is successful
