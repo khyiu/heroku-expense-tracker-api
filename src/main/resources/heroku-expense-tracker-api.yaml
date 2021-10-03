@@ -55,6 +55,22 @@ paths:
             minimum: 1
           required: true
         - in: query
+          name: sortDirection
+          schema:
+            type: string
+            enum:
+              - ASC
+              - DESC
+          required: true
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+            enum:
+              - DATE
+              - AMOUNT
+          required: true
+        - in: query
           name: tagFilters
           schema:
             type: array
