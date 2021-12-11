@@ -256,3 +256,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/ExpenseResponse'
+        required:
+          - pageNumber
+          - pageSize
+          - totalNumberOfItems
+          - items
