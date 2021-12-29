@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Heroku Expense Tracker
   description: API for Heroku Expense Tracker, a hobby project to manage personal expenses
-  version: 1.1.0
+  version: 1.2.0
 servers:
   - url: 'https://heroku-expense-tracker-back.herokuapp.com/'
     description: Production environment
@@ -12,6 +12,22 @@ tags:
   - name: Expense
     description: Operations related to a specific expense
 paths:
+  /balance:
+    get:
+      tags:
+        - Balance
+      operationId: getBalance
+      summary: Retrieve balance
+      description: Retrieve the sum of the current user's expenses amount
+      responses:
+        200:
+          description: Retrieval is successful
+          content:
+            application/json:
+              schema:
+                type: number
+        401:
+          description: User isn't authenticated
   /expenses:
     post:
       tags:
@@ -39,7 +55,7 @@ paths:
         - Expenses
       operationId: getExpenses
       summary: Retrieve expenses
-      description: Retrieves expenses belonging to the current user, in a paginated way. This operation also supports filtering based on
+      description: Retrieve expenses belonging to the current user, in a paginated way. This operation also supports filtering based on
         tag(s) and partial description
       parameters:
         - in: query
