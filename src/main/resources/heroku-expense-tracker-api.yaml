@@ -228,11 +228,8 @@ components:
         tags:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Tag'
           minItems: 1
-          minLength: 1
-          maxLength: 50
-          example: groceries, shopping
         description:
           type: string
           maxLength: 1024
@@ -247,6 +244,20 @@ components:
         - amount
         - tags
 
+    Tag:
+      description: Tag associated to an expense
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        value:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+        - value
+
     ExpenseResponse:
       description: Representation of an expense that has been persisted in the system.
       allOf:
@@ -255,25 +266,26 @@ components:
           properties:
             id:
               type: string
+              format: uuid
           required:
             - id
 
     ExpenseListResponse:
-        description: Paginated response that is returned to the user upon retrieval of his expenses
-        type: object
-        properties:
-          pageNumber:
-            type: integer
-          pageSize:
-            type: integer
-          totalNumberOfItems:
-            type: integer
+      description: Paginated response that is returned to the user upon retrieval of his expenses
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        totalNumberOfItems:
+          type: integer
+        items:
+          type: array
           items:
-            type: array
-            items:
-              $ref: '#/components/schemas/ExpenseResponse'
-        required:
-          - pageNumber
-          - pageSize
-          - totalNumberOfItems
-          - items
+            $ref: '#/components/schemas/ExpenseResponse'
+      required:
+        - pageNumber
+        - pageSize
+        - totalNumberOfItems
+        - items
