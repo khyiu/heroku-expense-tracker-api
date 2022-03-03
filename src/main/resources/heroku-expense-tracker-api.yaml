@@ -11,6 +11,8 @@ tags:
     description: Operations related to a set of expenses
   - name: Expense
     description: Operations related to a specific expense
+  - name: Tags
+    description: Operations related to the tags of the authenticated user
 paths:
   /balance:
     get:
@@ -209,6 +211,31 @@ paths:
         409:
           description: The expense to be updated has already been updated by an other request. The current current needs to reload it
 
+  /tags:
+    get:
+      tags:
+        - Tags
+      operationId: getTags
+      summary: Retrieve current authenticated user's tags
+      description: Retrieve the tags that belong to the current user and that match  
+        the provided query, if there is any
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        200:
+          description: Retrieval is successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+        401:
+          description: User isn't authenticated
 
 components:
   schemas:
