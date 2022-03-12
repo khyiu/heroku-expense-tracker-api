@@ -30,6 +30,7 @@ paths:
                 type: number
         401:
           description: User isn't authenticated
+
   /expenses:
     post:
       tags:
@@ -113,6 +114,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExpenseListResponse'
+        401:
+          description: User isn't authenticated
+
+  /expenses/import:
+    post:
+      tags:
+        - Expenses
+      operationId: importExpenses
+      summary: Import expenses
+      description: Upload file with expenses to import
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: Request to import expenses has been received
+        400:
+          description: Request does not comply with the data structure as defined in the API
         401:
           description: User isn't authenticated
 
@@ -217,7 +242,7 @@ paths:
         - Tags
       operationId: getTags
       summary: Retrieve current authenticated user's tags
-      description: Retrieve the tags that belong to the current user and that match  
+      description: Retrieve the tags that belong to the current user and that match
         the provided query, if there is any
       parameters:
         - in: query
