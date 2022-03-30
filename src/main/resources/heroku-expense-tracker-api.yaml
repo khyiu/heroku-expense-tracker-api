@@ -141,6 +141,24 @@ paths:
         401:
           description: User isn't authenticated
 
+  /expenses/back-up:
+    get:
+      tags:
+        - Expenses
+      operationId: exportExpenses
+      summary: Export expenses
+      description: Download current user's expenses as a CSV file
+      responses:
+        200:
+          description: CSV file containing current user's expenses
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        401:
+          description: User isn't authenticated
+
   /expense/{id}:
     get:
       tags:
