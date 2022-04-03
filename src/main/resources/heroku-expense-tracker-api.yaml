@@ -156,6 +156,11 @@ paths:
               schema:
                 type: string
                 format: binary
+          headers:
+            content-disposition:
+              description: defines the default name under which the export file would be downloaded
+              schema:
+                type: string
         401:
           description: User isn't authenticated
 
