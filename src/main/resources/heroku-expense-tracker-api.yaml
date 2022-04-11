@@ -116,6 +116,27 @@ paths:
                 $ref: '#/components/schemas/ExpenseListResponse'
         401:
           description: User isn't authenticated
+  /expenses/checked-status:
+    patch:
+      tags:
+        - Expenses
+      operationId: updateExpensesCheckedStatus
+      summary: Update the checked/unchecked status of the specified expenses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseCheckedStatusRequest'
+        required: true
+      responses:
+        200:
+          description: The specified expenses have been updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseListResponse'
+        400:
+          description: The request is invalid because some of the specified expenses don't exist
 
   /expenses/import:
     post:
@@ -342,8 +363,11 @@ components:
             id:
               type: string
               format: uuid
+            checked:
+              type: boolean
           required:
             - id
+            - checked
 
     ExpenseListResponse:
       description: Paginated response that is returned to the user upon retrieval of his expenses
@@ -364,3 +388,16 @@ components:
         - pageSize
         - totalNumberOfItems
         - items
+
+    ExpenseCheckedStatusRequest:
+      type: object
+      properties:
+        expenseIds:
+          type: array
+          items:
+            type: string
+        checked:
+          type: boolean
+      required:
+        - expenseIds
+        - checked
