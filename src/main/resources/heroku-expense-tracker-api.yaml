@@ -134,7 +134,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExpenseListResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpenseResponse'
         400:
           description: The request is invalid because some of the specified expenses don't exist
 
