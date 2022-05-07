@@ -96,9 +96,11 @@ paths:
             items:
               type: string
         - in: query
-          name: descriptionFilter
+          name: descriptionFilters
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - in: query
           name: paidWithCreditCardFilter
           schema:
