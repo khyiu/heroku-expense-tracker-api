@@ -119,6 +119,10 @@ paths:
           schema:
             type: string
             format: date
+        - in: query
+          name: checked
+          schema:
+            type: boolean
       responses:
         200:
           description: Retrieval is successful
