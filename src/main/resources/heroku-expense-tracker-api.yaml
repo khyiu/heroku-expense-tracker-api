@@ -123,6 +123,20 @@ paths:
           name: checked
           schema:
             type: boolean
+        - in: query
+          name: inclusiveAmountLowerBound
+          schema:
+            type: number
+            example: 9.95
+            minimum: -999999.99
+            maximum: 999999.99
+        - in: query
+          name: inclusiveAmountUpperBound
+          schema:
+            type: number
+            example: 9.95
+            minimum: -999999.99
+            maximum: 999999.99
       responses:
         200:
           description: Retrieval is successful
